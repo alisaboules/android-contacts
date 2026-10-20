@@ -23,30 +23,30 @@ fun <T> CommonBottomSheet(
     onDismiss: () -> Unit,
     itemContent: @Composable (T, Boolean) -> Unit
 ) {
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        dragHandle = { BottomSheetDefaults.DragHandle() }
+    ModalBottomSheet( // создаёт модальное нижнее окно
+        onDismissRequest = onDismiss, // передаёт функцию закрытия.
+        dragHandle = { BottomSheetDefaults.DragHandle() } // добавляет небольшую полоску в верхней части окна. Она визуально показывает, что окно можно перетаскивать.
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .fillMaxWidth() // на всю ширину
+                .padding(horizontal = 16.dp) // отступы слева и справа
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
+                    .fillMaxWidth() // на всю ширину
+                    .padding(bottom = 16.dp), // отступ снизу
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleLarge
+                Text( // отображает текст.
+                    text = title, // заголовок
+                    style = MaterialTheme.typography.titleLarge // задаёт стиль текста из текущей темы приложения.
                 )
-                IconButton(onClick = onDismiss) {
+                IconButton(onClick = onDismiss) { // создаёт кнопку с иконкой. при нажатии на кнопку вызывается переданная функция закрытия.
                     Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(R.string.close)
+                        imageVector = Icons.Default.Close, // задаёт изображение крестика.
+                        contentDescription = stringResource(R.string.close) // предоставляет текстовое описание иконки для сервисов доступности.
                     )
                 }
             }
@@ -56,14 +56,14 @@ fun <T> CommonBottomSheet(
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
             ) {
-                items(items) { item ->
+                items(items) { item -> // первый items — функция для добавления элементов в LazyColumn, а второй items — список, переданный параметром в CommonBottomSheet.
                     val isSelected = selectedItems.contains(item)
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 4.dp),
                         onClick = {
-                            val newSelection = selectedItems.toMutableSet()
+                            val newSelection = selectedItems.toMutableSet() // Создаётся изменяемая копия множества выбранных элементов.
                             if (isSelected) {
                                 newSelection.remove(item)
                             } else {
